@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,14 @@ Route::prefix('admin')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('admin.logout');
 
     Route::middleware(['admin'])->group(function () {
-        Route::get('/', [DashBoardController::class, 'index'])->name('dashboard');
-        // Route::get('category/create', 'CategoryController@create')->name('admin.category.create');
-        // Route::get('image', 'UploadController@index')->name('admin.image');
-        // Route::post('image/upload', 'UploadController@upload')->name('admin.image.upload');
+        Route::get('/', [DashBoardController::class, 'index'])->name('admin.dashboard');
+        Route::prefix('brands')->group(function() {
+            Route::get('/', [BrandController::class, 'index'])->name('admin.brand.index');
+            Route::get('create', [BrandController::class, 'create'])->name('admin.brand.create');
+            Route::post('store', [BrandController::class, 'store'])->name('admin.brand.store');
+            Route::get('edit/{id}', [BrandController::class, 'edit'])->name('admin.brand.edit');
+            Route::patch('update/{id}', [BrandController::class, 'update'])->name('admin.brand.update');
+            Route::delete('delete/{id}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+        });
     });
 });

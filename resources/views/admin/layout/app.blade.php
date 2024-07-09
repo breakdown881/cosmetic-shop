@@ -97,6 +97,16 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
                     <i class="fas fa-folder"></i>
+                    <span>@lang('translate.brands')</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="">
+                    <a class="dropdown-item" href="{{ route('admin.brand.index') }}">@lang('translate.list')</a>
+                    <a class="dropdown-item" href="{{ route('admin.brand.create') }}">@lang('translate.add')</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
+                    <i class="fas fa-folder"></i>
                     <span>@lang('translate.categories')</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="">
@@ -163,12 +173,11 @@
             </li>
         </ul>
 
-        @include('admin.layout.message');
-        @yield('content')
+        <div id="content-wrapper">
+            @include('admin.layout.message')
+            @yield('content')
+        </div>
 
-
-        <!-- /.content-wrapper -->
-        <!-- /.container-fluid -->
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
             <div class="container my-auto">

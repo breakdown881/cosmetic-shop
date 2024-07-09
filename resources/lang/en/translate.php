@@ -55,4 +55,20 @@ return [
     'total'                 => 'Total',
     'deliveryAddress'       => 'Delivery address',
     'staffIncharge'         => 'Staff in charge',
+    'brands'                => 'Brands',
+    'management'            => 'Management',
+    'delete'                => 'Delete',
+    'name'                  => 'Name',
+    'createdAt'             => 'Created at',
+    'updatedAt'             => 'Updated at',
+    'edit'                  => 'Edit',
+    'save'                  => 'Save',
+    'required'              => ':attribute is required.',
+    'min'                   => [
+        'string'            => ':attribute has at least :min characters.',
+    ],
+    'max'                   => [
+        'string'            => ':attribute has a maximum of :max characters.',
+    ],
+    'back'                  => 'Back',
 ];

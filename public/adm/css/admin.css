@@ -70,3 +70,7 @@ table img {
 	padding-bottom:0px;
 }
 
+.required {
+    color: red;
+    font-weight: bold;
+}

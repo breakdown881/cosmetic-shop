@@ -55,4 +55,20 @@ return [
     'total'                 => 'Tổng cộng',
     'deliveryAddress'       => 'Địa chỉ giao hàng',
     'staffIncharge'         => 'Nhân viên phụ trách',
+    'brands'                => 'Thương hiệu',
+    'management'            => 'Quản lý',
+    'delete'                => 'Xóa',
+    'name'                  => 'Tên',
+    'createdAt'             => 'Ngày tạo',
+    'updatedAt'             => 'Ngày chỉnh sửa',
+    'edit'                  => 'Chỉnh sửa',
+    'save'                  => 'Lưu',
+    'required'              => ':attribute là bắt buộc.',
+    'min'                   => [
+        'string'            => ':attribute phải có ít nhất :min ký tự.',
+    ],
+    'max'                   => [
+        'string'            => ':attribute có tối đa :max ký tự.',
+    ],
+    'back'                  => 'Trở lại',
 ];
