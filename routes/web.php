@@ -37,8 +37,8 @@ Route::prefix('admin')->group(function () {
             Route::get('create', [BrandController::class, 'create'])->name('admin.brand.create');
             Route::post('store', [BrandController::class, 'store'])->name('admin.brand.store');
             Route::get('edit/{id}', [BrandController::class, 'edit'])->name('admin.brand.edit');
-            Route::patch('update/{id}', [BrandController::class, 'update'])->name('admin.brand.update');
-            Route::delete('delete/{id}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+            Route::patch('update/{brand}', [BrandController::class, 'update'])->name('admin.brand.update');
+            Route::delete('delete/{brand}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
         });
     });
 });

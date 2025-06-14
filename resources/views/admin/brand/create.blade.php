@@ -13,10 +13,19 @@
             <form method="post" action="{{ route('admin.brand.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
-                    <label class="col-md-12 control-label" for="name">@lang('translate.name')<span
-                            class="required">*</span></label>
+                    <label class="col-md-12 control-label" for="name">
+                        @lang('translate.name')<span class="required">*</span>
+                    </label>
                     <div class="col-md-9 col-lg-6">
                         <input name="name" id="name" type="text" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-12 control-label" for="image">
+                        @lang('translate.image.title')<spanclass="required">*</span>
+                    </label>
+                    <div class="col-md-9 col-lg-6">
+                        <input name="image" id="image" type="file" class="form-control" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
                 <div class="form-action row">

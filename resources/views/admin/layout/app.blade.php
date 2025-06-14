@@ -94,14 +94,17 @@
                     <a class="dropdown-item" href="#">@lang('translate.add')</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
+            @php
+                $isBrand = ($currentMenu ?? '') === 'brands';
+            @endphp
+            <li class="nav-item dropdown {{ $isBrand ? 'show' : '' }}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="" aria-expanded="{{ $isBrand ? 'true' : 'false' }}">
                     <i class="fas fa-folder"></i>
                     <span>@lang('translate.brands')</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="">
-                    <a class="dropdown-item" href="{{ route('admin.brand.index') }}">@lang('translate.list')</a>
-                    <a class="dropdown-item" href="{{ route('admin.brand.create') }}">@lang('translate.add')</a>
+                <div class="dropdown-menu {{ $isBrand ? 'show' : '' }}" aria-labelledby="">
+                    <a class="dropdown-item {{ request()->is('admin/brands') ? 'active' : '' }}" href="{{ route('admin.brand.index') }}">@lang('translate.list')</a>
+                    <a class="dropdown-item {{ request()->is('admin/brands/*') ? 'active' : '' }}" href="{{ route('admin.brand.create') }}">@lang('translate.add')</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -229,7 +232,9 @@
     <script src="{{ asset('') }}/adm/js/sb-admin.min.js"></script>
     <!-- Demo scripts for this page-->
     <script src="{{ asset('') }}/adm/js/demo/datatables-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('') }}/adm/js/admin.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

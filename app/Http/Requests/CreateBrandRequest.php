@@ -14,7 +14,8 @@ class CreateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:brands,name,' . $this->route('brand')?->id,
+            'image' => 'image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 
@@ -23,6 +24,9 @@ class CreateBrandRequest extends FormRequest
         return [
             'name.required' => __('translate.required', ['attribute' => 'Name']),
             'name.max'      => __('translate.max.string', ['attribute' => 'Name', 'max' => 255]),
+            'name.unique'   => __('translate.unique', ['attribute' => 'Name']),
+            'image.image'   => __('translate.image.type'),
+            'image.mimes'   => __('translate.image.mimes'),
         ];
     }
 

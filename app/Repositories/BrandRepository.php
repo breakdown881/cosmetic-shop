@@ -39,7 +39,7 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
 
             if ($existBrand->count() == 0) {
                 if ($brandObject->save()) {
-                    return true;
+                    return $brandObject;
                 }
             }
             return false;
@@ -48,14 +48,13 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         }
     }
 
-    public function update($id, $data)
+    public function update($brand, array $data)
     {
         try {
-            $brand = Brand::all()->find($id);
             if ($brand) {
                 $brand->fill($data);
                 if ($brand->save()) {
-                    return true;
+                    return $brand;
                 }
                 return false;
             }
@@ -64,20 +63,17 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         }
     }
 
-    public function delete($ids)
+    public function delete($brand)
     {
         try {
-            // $resultPackage = Package::destroy($ids);
-            // if ($resultPackage) {
-            //     $packageModule = PackageModule::all()->firstWhere('packageId',$ids);
-            //     $resultPackageModule = PackageModule::destroy($packageModule->id);
-            //     if($resultPackageModule) {
-            //         return $resultPackageModule;
-            //     }
-            // }
-            // return null;
+            if ($brand) {
+                $brand->clearMediaCollection();
+                return $brand->delete();
+            }
+
+            return false;
         } catch (\Exception $exception) {
-            // return false;
+            return false;
         }
     }
 }

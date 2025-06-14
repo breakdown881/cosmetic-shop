@@ -24,15 +24,33 @@ class BrandService
         return $this->brandRepository->get($id);
     }
 
-    public function store($data)
+    public function store($data, $image = null)
     {
         $data['created_by'] = Auth::guard('admin')->user()->id;
-        return $this->brandRepository->create($data);
+        $brand = $this->brandRepository->create($data);
+
+        if ($image) {
+            $brand->addMedia($image)->toMediaCollection('brands');
+        }
+
+        return $brand;
     }
 
-    public function update($id, $data)
+    public function update($brand, $data, $image = null)
     {
         $data['created_by'] = Auth::guard('admin')->user()->id;
-        return $this->brandRepository->update($id, $data);
+        $this->brandRepository->update($brand, $data);
+
+        if ($image) {
+            $brand->clearMediaCollection('brands');
+            $brand->addMedia($image)->toMediaCollection('brands');
+        }
+
+        return $brand;
+    }
+
+    public function destroy($brand)
+    {
+        return $this->brandRepository->delete($brand);
     }
 }

@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/x-icon" href="{{asset("")}}/images/logo.jpg" />
         <link rel="stylesheet" href="{{asset("")}}/vendor/fontawesome-free-5.11.2-web/css/all.min.css">
-        <link rel="stylesheet" href="{{asset("")}}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{asset("")}}/vendor/bootstrap-5.0.2-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="{{asset("")}}/vendor/star-rating/css/star-rating.min.css">
         <link rel="stylesheet" href="{{asset("")}}/css/style.css">
         <script src="{{asset("")}}/vendor/jquery.min.js"></script>
-        <script src="{{asset("")}}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="{{asset("")}}/vendor/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
         <script type="text/javascript" src="{{asset("")}}/vendor/star-rating/js/star-rating.min.js"></script>
         {!! NoCaptcha::renderJs() !!}
@@ -26,7 +26,7 @@
         @endphp
         <header>
             <!-- use for ajax -->
-            <input type="hidden" id="reference" value=""> 
+            <input type="hidden" id="reference" value="">
             <!-- Top Navbar -->
             <div class="top-navbar container-fluid">
                 <div class="menu-mb">
@@ -60,7 +60,6 @@
                                 @guest
                                 <a href="javascript:void(0)" class="btn-register">Đăng Ký</a>
                                 @endguest
-                                
                             </li>
                             <li>
                                 @auth
@@ -86,7 +85,6 @@
                                 @guest
                                 <a href="javascript:void(0)" class="btn-login">Đăng Nhập  </a>
                                 @endguest
-                               
                             </li>
                         </ul>
                     </div>
@@ -146,11 +144,11 @@
                         Cart::restore(Auth()->user()->email);
                         Cart::store(Auth()->user()->email);
                     @endphp
-                    
+
                 @endauth
                 <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i class="fa fa-shopping-cart"></i> <span 
+                    <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i class="fa fa-shopping-cart"></i> <span
                         class="number-total-product">{{Cart::count()}}</span></a></li>
                 </ul>
             </div>
@@ -290,7 +288,7 @@
                             <div class="form-group">
                                 <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
                             </div>
-                            <input type="hidden" name="reference" value="">                          
+                            <input type="hidden" name="reference" value="">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Đăng Nhập</button><br>
@@ -379,7 +377,7 @@
                                 <a class="btn btn-default" href="{{route("product.index")}}">Tiếp tục mua sắm</a>
 
                                 <a class="btn btn-primary" href="{{route("payment.create")}}">Đặt hàng</a>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -397,7 +395,7 @@
                 version          : 'v4.0'
             });
             };
-            
+
             (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;

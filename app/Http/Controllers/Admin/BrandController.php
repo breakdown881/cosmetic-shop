@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBrandRequest;
+use App\Models\Brand;
 use App\Repositories\BrandRepository;
 use App\Services\Admin\BrandService;
 use Illuminate\Http\Request;
@@ -25,7 +26,10 @@ class BrandController extends Controller
     {
         $brandService = new BrandService($this->brandRepository);
         $brands = $brandService->getAll();
-        return view('admin.brand.index', ['brands' => $brands]);
+        return view('admin.brand.index', [
+            'brands'        => $brands,
+            'currentMenu'   => 'brands'
+        ]);
     }
 
     /**
@@ -35,7 +39,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brand.create');
+        return view('admin.brand.create', ['currentMenu' => 'brands']);
     }
 
     /**
@@ -49,12 +53,11 @@ class BrandController extends Controller
         try {
             $data = $request->validated();
             $brandService = new BrandService($this->brandRepository);
-            $brandService->store($data);
+            $brandService->store($data, $request->file('image'));
+            return redirect()->route('admin.brand.index')->with('success', __('translate.createSuccess'));
         } catch (\Exception $exception) {
-            return false;
+            return redirect()->route('admin.brand.index')->with('success', __('translate.error'));
         }
-
-        return $this->index();
     }
 
     /**
@@ -67,37 +70,45 @@ class BrandController extends Controller
     {
         $brandService = new BrandService($this->brandRepository);
         $brand = $brandService->get($id);
-        return view('admin.brand.edit',['brand' => $brand]);
+        return view('admin.brand.edit', [
+            'brand'         => $brand,
+            'currentMenu'   => 'brands'
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\CreateBrandRequest  $request
-     * @param  int  $id
+     * @param  Brand $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateBrandRequest $request, $id)
+    public function update(CreateBrandRequest $request, Brand $brand)
     {
         try {
             $data = $request->validated();
             $brandService = new BrandService($this->brandRepository);
-            $brandService->update($id, $data);
+            $brandService->update($brand, $data, $request->file('image'));
+            return redirect()->route('admin.brand.index')->with('success', __('translate.updateSuccess'));
         } catch (\Exception $exception) {
-            return false;
+            return redirect()->route('admin.brand.index')->with('success', __('translate.error'));
         }
-
-        return $this->index();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
-        //
+        try {
+            $brandService = new BrandService($this->brandRepository);
+            $brandService->destroy($brand);
+            return redirect()->route('admin.brand.index')->with('success', __('translate.deleteSuccess'));
+        } catch (\Exception $exception) {
+            return redirect()->route('admin.brand.index')->with('success', __('translate.error'));
+        }
     }
 }

@@ -10,14 +10,38 @@
                 <li class="breadcrumb-item active">@lang('translate.brands')</li>
             </ol>
             <!-- /form -->
-            <form method="post" action="{{ route('admin.brand.update', ['id' => $brand->id]) }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('admin.brand.update', ['brand' => $brand->id]) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="form-group row">
-                    <label class="col-md-12 control-label" for="name">@lang('translate.name')<span
-                            class="required">*</span></label>
+                    <label class="col-md-12 control-label" for="name">
+                        @lang('translate.name')<span class="required">*</span>
+                    </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="name" id="name" type="text" value="{{$brand->name}}" class="form-control">
+                        <input name="name" id="name" type="text" value="{{ $brand->name }}"
+                            class="form-control">
+                    </div>
+                </div>
+                {{-- Current Image --}}
+                @if ($brand->getFirstMediaUrl('brands'))
+                    <div class="form-group row">
+                        <div class="mb-3">
+                            <label class="col-md-12 control-label d-block">
+                                @lang('translate.image.current')
+                            </label>
+                            <div class="col-md-9 col-lg-6">
+                                <img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="Hình ảnh thương hiệu" class="img-thumbnail" width="200">
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <div class="form-group row">
+                    <label class="col-md-12 control-label" for="image">
+                        @lang('translate.image.title')<spanclass="required">*</span>
+                    </label>
+                    <div class="col-md-9 col-lg-6">
+                        <input name="image" id="image" type="file" class="form-control" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
                 <div class="form-action row">
