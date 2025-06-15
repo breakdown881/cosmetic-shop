@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@lang('translate.overview')</title>
+    <title>@yield('title', __('translate.overview'))</title>
     <!-- Create favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('') }}/adm/images/logo.jpg">
     <!-- Custom fonts for this template-->

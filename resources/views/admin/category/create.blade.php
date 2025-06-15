@@ -1,5 +1,5 @@
 @extends('admin.layout.app')
-@section('title', 'Brands')
+@section('title', 'Categories')
 @section('content')
     <div id="content-wrapper">
         <div class="container-fluid">
@@ -11,32 +11,16 @@
                 <li class="breadcrumb-item active">@lang('translate.brands')</li>
             </ol>
             <!-- /form -->
-            <form method="post" action="{{ route('admin.brand.update', ['brand' => $brand->id]) }}"
-                enctype="multipart/form-data">
+            <form method="post" action="{{ route('admin.brand.store') }}" enctype="multipart/form-data">
                 @csrf
-                @method('PATCH')
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="name">
                         @lang('translate.name')<span class="required">*</span>
                     </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="name" id="name" type="text" value="{{ $brand->name }}"
-                            class="form-control">
+                        <input name="name" id="name" type="text" value="" class="form-control">
                     </div>
                 </div>
-                {{-- Current Image --}}
-                @if ($brand->getFirstMediaUrl('brands'))
-                    <div class="form-group row">
-                        <div class="mb-3">
-                            <label class="col-md-12 control-label d-block">
-                                @lang('translate.image.current')
-                            </label>
-                            <div class="col-md-9 col-lg-6">
-                                <img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="Hình ảnh thương hiệu" class="img-thumbnail" width="200">
-                            </div>
-                        </div>
-                    </div>
-                @endif
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="image">
                         @lang('translate.image.title')<spanclass="required">*</span>
@@ -51,8 +35,8 @@
                     </label>
                     <div class="col-md-9 col-lg-6">
                         <select name="status" id="status" class="form-control">
-                            <option value="0" {{$brand->status ? '' : 'selected'}}>@lang('translate.inactive')</option>
-                            <option value="1" {{$brand->status ? 'selected' : ''}}>@lang('translate.active')</option>
+                            <option value="0">@lang('translate.inactive')</option>
+                            <option value="1">@lang('translate.active')</option>
                         </select>
                     </div>
                 </div>

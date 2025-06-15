@@ -1,5 +1,5 @@
 @extends('admin.layout.app')
-@section('title', 'Brands')
+@section('title', 'Categories')
 @section('content')
     <div id="content-wrapper">
         <div class="container-fluid">
