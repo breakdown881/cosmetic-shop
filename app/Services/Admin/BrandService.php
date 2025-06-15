@@ -38,7 +38,6 @@ class BrandService
 
     public function update($brand, $data, $image = null)
     {
-        $data['created_by'] = Auth::guard('admin')->user()->id;
         $this->brandRepository->update($brand, $data);
 
         if ($image) {
@@ -52,5 +51,11 @@ class BrandService
     public function destroy($brand)
     {
         return $this->brandRepository->delete($brand);
+    }
+
+    public function changeStatus($brand, $status)
+    {
+        $this->brandRepository->update($brand, ['status' => $status]);
+        return $brand;
     }
 }

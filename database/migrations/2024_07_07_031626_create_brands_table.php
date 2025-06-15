@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->nullable(false);
+            $table->smallInteger('status')->default(0);
             $table->unsignedInteger('created_by')->index('CREATED_BY');
             $table->timestamps();
         });

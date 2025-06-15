@@ -26,7 +26,7 @@ class LoginController extends Controller
             Auth::guard('admin')->logout();
             $request->session()->put('error', 'Account is unactive');
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard');
     }
 
     public function logout()

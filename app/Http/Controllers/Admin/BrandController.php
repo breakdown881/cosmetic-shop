@@ -111,4 +111,24 @@ class BrandController extends Controller
             return redirect()->route('admin.brand.index')->with('success', __('translate.error'));
         }
     }
+
+    public function changeStatus(Brand $brand, Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'status' => 'required|integer|max:2',
+            ]);
+            $brandService = new BrandService($this->brandRepository);
+            $brandService->changeStatus($brand, $validated['status']);
+            return response()->json([
+                'success' => true,
+                'message' => __('translate.changeStatusSuccess')
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => __('translate.error')
+            ]);
+        }
+    }
 }

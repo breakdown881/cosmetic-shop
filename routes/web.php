@@ -39,6 +39,7 @@ Route::prefix('admin')->group(function () {
             Route::get('edit/{id}', [BrandController::class, 'edit'])->name('admin.brand.edit');
             Route::patch('update/{brand}', [BrandController::class, 'update'])->name('admin.brand.update');
             Route::delete('delete/{brand}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+            Route::post('changeStatus/{brand}', [BrandController::class, 'changeStatus'])->name('admin.brand.change_status');
         });
     });
 });

@@ -28,6 +28,17 @@
                         <input name="image" id="image" type="file" class="form-control" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-md-12 control-label" for="status">
+                        @lang('translate.status')<span class="required">*</span>
+                    </label>
+                    <div class="col-md-9 col-lg-6">
+                        <select name="status" id="status" class="form-control">
+                            <option value="0">@lang('translate.inactive')</option>
+                            <option value="1">@lang('translate.active')</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-action row">
                     <div class="col-md-9 col-lg-6 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary btn-md mr-2">@lang('translate.save')</button>

@@ -86,4 +86,10 @@ return [
     'confirmDelete'         => 'Bạn có chắc chắn muốn xóa dữ liệu này?',
     'buttonDelete'          => 'Xóa',
     'buttonCancel'          => 'Hủy',
+    'status'                => 'Trạng thái',
+    'inactive'              => 'Không hoạt động',
+    'active'                => 'Đang hoạt động',
+    'changeStatusSuccess'   => 'Cập nhật trạng thái thành công!',
+    'confirmButton'         => 'Xác nhận',
+    'confirmChangeStatus'   => 'Bạn có muốn thay đổi trạng thái dữ liệu này?',
 ];

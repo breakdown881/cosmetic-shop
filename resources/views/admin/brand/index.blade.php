@@ -23,6 +23,7 @@
                                     <th><input type="checkbox" onclick="checkAll(this)"></th>
                                     <th>@lang('translate.logo')</th>
                                     <th>@lang('translate.name')</th>
+                                    <th>@lang('translate.status')</th>
                                     <th>@lang('translate.createdAt')</th>
                                     <th>@lang('translate.updatedAt')</th>
                                     <th></th>
@@ -40,6 +41,13 @@
                                             @endif
                                         </td>
                                         <td>{{ $brand->name }}</td>
+                                        <td>
+                                            <button
+                                                class="btn {{ $brand->status ? 'btn-success' : 'btn-danger' }} btn-sm btn-change-status"
+                                                data-id="{{ $brand->id }}" data-status="{{ 1 - ($brand->status ?? 0) }}">
+                                                {{ $brand->status ? __('translate.active') : __('translate.inactive') }}
+                                            </button>
+                                        </td>
                                         <td>{{ $brand->created_at }}</td>
                                         <td>{{ $brand->updated_at }}</td>
                                         <td>
@@ -75,6 +83,8 @@
             confirmDelete: @json(__('translate.confirmDelete')),
             deleteButton: @json(__('translate.buttonDelete')),
             cancelButton: @json(__('translate.buttonCancel')),
+            confirmButton: @json(__('translate.confirmButton')),
+            confirmChangeStatus: @json(__('translate.confirmChangeStatus')),
         };
     </script>
     <script type="module" src="{{ asset('') }}/adm/js/brand/index.js"></script>

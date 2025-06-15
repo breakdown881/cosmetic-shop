@@ -17,13 +17,15 @@ class Brand extends Model implements HasMedia
     protected $fillable = [
         'name',
         'created_by',
+        'status',
     ];
 
     public function toSearchableArray(): array
     {
         return [
             'name'          => $this->name,
-            'created_by'    => $this->created_by
+            'created_by'    => $this->created_by,
+            'status'        => $this->status,
         ];
     }
 
