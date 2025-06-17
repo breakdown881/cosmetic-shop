@@ -92,4 +92,9 @@ return [
     'changeStatusSuccess'   => 'Cập nhật trạng thái thành công!',
     'confirmButton'         => 'Xác nhận',
     'confirmChangeStatus'   => 'Bạn có muốn thay đổi trạng thái dữ liệu này?',
+    'management'            => 'Quản lý',
+    'parentId'              => [
+        'integer'           => 'Parent id không tồn tại',
+    ],
+    'categories'            => 'Danh mục',
 ];

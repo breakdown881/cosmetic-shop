@@ -15,6 +15,7 @@
     <link href="{{ asset('') }}/adm/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Page level plugin CSS-->
     <link href="{{ asset('') }}/adm/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Custom styles for this template-->
     <link href="{{ asset('') }}/adm/css/sb-admin.css" rel="stylesheet">
     <link href="{{ asset('') }}/adm/css/admin.css" rel="stylesheet">
@@ -108,14 +109,18 @@
                     <a class="dropdown-item {{ request()->is('admin/brands/*') ? 'active' : '' }}" href="{{ route('admin.brand.create') }}">@lang('translate.add')</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
+            @php
+                $isCategory = ($currentMenu ?? '') === 'categories';
+                $segments = request()->segments();
+            @endphp
+            <li class="nav-item dropdown {{ $isCategory ? 'show' : '' }}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="" aria-expanded="{{ $isCategory ? 'true' : 'false' }}">
                     <i class="fas fa-folder"></i>
                     <span>@lang('translate.categories')</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="">
-                    <a class="dropdown-item" href=".#">@lang('translate.list')</a>
-                    <a class="dropdown-item" href="#">@lang('translate.add')</a>
+                <div class="dropdown-menu {{ $isCategory ? 'show' : '' }}" aria-labelledby="">
+                    <a class="dropdown-item {{ (request()->is('admin/categories') || (isset($segments[2]) && is_numeric($segments[2] ?? ''))) ? 'active' : '' }}" href="{{ route('admin.category.index') }}">@lang('translate.list')</a>
+                    <a class="dropdown-item {{ (isset($segments[2]) && !is_numeric($segments[2])) ? 'active' : '' }}" href="{{ route('admin.category.create') }}">@lang('translate.add')</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

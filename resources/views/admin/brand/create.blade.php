@@ -8,7 +8,12 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">@lang('translate.management')</a>
                 </li>
-                <li class="breadcrumb-item active">@lang('translate.brands')</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.brand.index') }}">@lang('translate.brands')</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    @lang('translate.add')
+                </li>
             </ol>
             <!-- /form -->
             <form method="post" action="{{ route('admin.brand.store') }}" enctype="multipart/form-data">

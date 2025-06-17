@@ -30,6 +30,24 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
         return null;
     }
 
+    public function getChild($id)
+    {
+        $categories = Category::all()->where('parent_id', $id);
+        if ($categories) {
+            return $categories;
+        }
+        return null;
+    }
+
+    public function getParent()
+    {
+        $categories = Category::all()->where('parent_id', NULL);
+        if ($categories) {
+            return $categories;
+        }
+        return null;
+    }
+
     public function create(array $data)
     {
         try {

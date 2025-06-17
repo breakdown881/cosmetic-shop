@@ -92,4 +92,9 @@ return [
     'changeStatusSuccess'   => 'Change status successfully!',
     'confirmButton'         => 'Confirm',
     'confirmChangeStatus'   => 'Do you want to change status this record?',
+    'management'            => 'Management',
+    'parentId'              => [
+        'integer'           => 'Parent id is not available',
+    ],
+    'categories'            => 'Categories',
 ];

@@ -8,10 +8,31 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">@lang('translate.management')</a>
                 </li>
-                <li class="breadcrumb-item active">@lang('translate.brands')</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.category.index') }}">@lang('translate.categories')</a>
+                </li>
+                @if (!empty($isChild))
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.category.list', ['id' => $category->id]) }}">
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @endif
+                <li class="breadcrumb-item active">
+                    @lang('translate.add')
+                </li>
             </ol>
             <!-- /form -->
-            <form method="post" action="{{ route('admin.brand.store') }}" enctype="multipart/form-data">
+            @php
+                if (empty($isChild)) {
+                    $url        = route('admin.category.store');
+                    $urlBack    = route('admin.category.index');
+                } else {
+                    $url        = route('admin.category.store.child', ['id' => $category->id]);
+                    $urlBack    = route('admin.category.list', ['id' => $category->id]);
+                }
+            @endphp
+            <form method="post" action="{{ $url }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label class="col-md-12 control-label" for="name">
@@ -19,14 +40,6 @@
                     </label>
                     <div class="col-md-9 col-lg-6">
                         <input name="name" id="name" type="text" value="" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-12 control-label" for="image">
-                        @lang('translate.image.title')<spanclass="required">*</span>
-                    </label>
-                    <div class="col-md-9 col-lg-6">
-                        <input name="image" id="image" type="file" class="form-control" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -43,7 +56,7 @@
                 <div class="form-action row">
                     <div class="col-md-9 col-lg-6 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary btn-md mr-2">@lang('translate.save')</button>
-                        <a href="{{ route('admin.brand.index') }}" class="btn btn-secondary btn-md">@lang('translate.back')</a>
+                        <a href="{{ $urlBack }}" class="btn btn-secondary btn-md">@lang('translate.back')</a>
                     </div>
                 </div>
             </form>

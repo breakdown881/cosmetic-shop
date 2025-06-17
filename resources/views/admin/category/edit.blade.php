@@ -8,10 +8,31 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">@lang('translate.management')</a>
                 </li>
-                <li class="breadcrumb-item active">@lang('translate.brands')</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.category.index') }}">@lang('translate.categories')</a>
+                </li>
+                @if (!empty($isChild))
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.category.list', ['id' => $parent->id]) }}">
+                            {{ $parent->name }}
+                        </a>
+                    </li>
+                @endif
+                <li class="breadcrumb-item active">
+                    {{ $category->name }}
+                </li>
             </ol>
             <!-- /form -->
-            <form method="post" action="{{ route('admin.brand.update', ['brand' => $brand->id]) }}"
+            @php
+                if (empty($isChild)) {
+                    $url        = route('admin.category.update', ['category' => $category->id]);
+                    $urlBack    = route('admin.category.index');
+                } else {
+                    $url        = route('admin.category.update.child', ['id' => $parent->id, 'category' => $category->id]);
+                    $urlBack    = route('admin.category.list', ['id' => $parent->id]);
+                }
+            @endphp
+            <form method="post" action="{{ $url }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
@@ -20,29 +41,8 @@
                         @lang('translate.name')<span class="required">*</span>
                     </label>
                     <div class="col-md-9 col-lg-6">
-                        <input name="name" id="name" type="text" value="{{ $brand->name }}"
+                        <input name="name" id="name" type="text" value="{{ $category->name }}"
                             class="form-control">
-                    </div>
-                </div>
-                {{-- Current Image --}}
-                @if ($brand->getFirstMediaUrl('brands'))
-                    <div class="form-group row">
-                        <div class="mb-3">
-                            <label class="col-md-12 control-label d-block">
-                                @lang('translate.image.current')
-                            </label>
-                            <div class="col-md-9 col-lg-6">
-                                <img src="{{ $brand->getFirstMediaUrl('brands') }}" alt="Hình ảnh thương hiệu" class="img-thumbnail" width="200">
-                            </div>
-                        </div>
-                    </div>
-                @endif
-                <div class="form-group row">
-                    <label class="col-md-12 control-label" for="image">
-                        @lang('translate.image.title')<spanclass="required">*</span>
-                    </label>
-                    <div class="col-md-9 col-lg-6">
-                        <input name="image" id="image" type="file" class="form-control" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -51,15 +51,15 @@
                     </label>
                     <div class="col-md-9 col-lg-6">
                         <select name="status" id="status" class="form-control">
-                            <option value="0" {{$brand->status ? '' : 'selected'}}>@lang('translate.inactive')</option>
-                            <option value="1" {{$brand->status ? 'selected' : ''}}>@lang('translate.active')</option>
+                            <option value="0" {{$category->status ? '' : 'selected'}}>@lang('translate.inactive')</option>
+                            <option value="1" {{$category->status ? 'selected' : ''}}>@lang('translate.active')</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-action row">
                     <div class="col-md-9 col-lg-6 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary btn-md mr-2">@lang('translate.save')</button>
-                        <a href="{{ route('admin.brand.index') }}" class="btn btn-secondary btn-md">@lang('translate.back')</a>
+                        <a href="{{ $urlBack }}" class="btn btn-secondary btn-md">@lang('translate.back')</a>
                     </div>
                 </div>
             </form>
