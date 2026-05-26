@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateBrandRequest;
 use App\Http\Requests\CreateCategoryRequest;
-use App\Models\Brand;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Services\Admin\CategoryService;

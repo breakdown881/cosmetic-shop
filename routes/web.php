@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,20 @@ Route::prefix('admin')->group(function () {
             Route::post('/{id}/store', [CategoryController::class, 'storeChild'])->name('admin.category.store.child');
             Route::get('{id}/edit/{category}', [CategoryController::class, 'editChild'])->name('admin.category.edit.child');
             Route::patch('{id}/update/{category}', [CategoryController::class, 'updateChild'])->name('admin.category.update.child');
+        });
+        Route::prefix('products')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('admin.product.index');
+            Route::get('create', [ProductController::class, 'create'])->name('admin.product.create');
+            Route::post('store', [ProductController::class, 'store'])->name('admin.product.store');
+            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
+            Route::patch('update/{product}', [ProductController::class, 'update'])->name('admin.product.update');
+            Route::delete('delete/{product}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
+            Route::post('changeStatus/{product}', [ProductController::class, 'changeStatus'])->name('admin.product.change_status');
+            Route::get('/{id}', [ProductController::class, 'list'])->name('admin.product.list');
+            Route::get('/{id}/create', [ProductController::class, 'createChild'])->name('admin.product.create.child');
+            Route::post('/{id}/store', [ProductController::class, 'storeChild'])->name('admin.product.store.child');
+            Route::get('{id}/edit/{product}', [ProductController::class, 'editChild'])->name('admin.product.edit.child');
+            Route::patch('{id}/update/{product}', [ProductController::class, 'updateChild'])->name('admin.product.update.child');
         });
     });
 });
