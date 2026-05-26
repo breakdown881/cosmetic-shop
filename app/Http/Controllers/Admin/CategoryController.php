@@ -34,7 +34,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function list($id)
+    public function list(int $id)
     {
         $categoryService    = new CategoryService($this->categoryRepository);
         $categories         = $categoryService->getChild($id);
@@ -56,7 +56,7 @@ class CategoryController extends Controller
         return view('admin.category.create', ['currentMenu' => 'categories']);
     }
 
-    public function createChild($id)
+    public function createChild(int $id)
     {
         $categoryService    = new CategoryService($this->categoryRepository);
         $category           = $categoryService->get($id);
@@ -85,7 +85,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function storeChild($id, CreateCategoryRequest $request)
+    public function storeChild(int $id, CreateCategoryRequest $request)
     {
         try {
             $data               = $request->validated();
@@ -104,7 +104,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $categoryService = new CategoryService($this->categoryRepository);
         $category = $categoryService->get($id);
@@ -114,7 +114,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function editChild($id, Category $category)
+    public function editChild(int $id, Category $category)
     {
         $categoryService = new CategoryService($this->categoryRepository);
         $parent = $categoryService->get($id);
@@ -145,7 +145,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function updateChild(CreateCategoryRequest $request, $id, Category $category)
+    public function updateChild(CreateCategoryRequest $request, int $id, Category $category)
     {
         try {
             $data = $request->validated();
