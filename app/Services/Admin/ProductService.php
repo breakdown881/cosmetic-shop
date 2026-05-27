@@ -19,6 +19,21 @@ class ProductService
         return $this->productRepository->getAll();
     }
 
+    public function search(array $filters)
+    {
+        $filters['name'] = trim((string) ($filters['name'] ?? ''));
+
+        if (
+            $filters['name'] === ''
+            && empty($filters['brand_id'])
+            && empty($filters['category_id'])
+        ) {
+            return $this->getAll();
+        }
+
+        return $this->productRepository->search($filters);
+    }
+
     public function getByCategory($id)
     {
         return $this->productRepository->getByCategory($id);

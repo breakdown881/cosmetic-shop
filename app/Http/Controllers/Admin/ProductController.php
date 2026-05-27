@@ -24,12 +24,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $filters = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'brand_id' => 'nullable|integer|exists:brands,id',
+            'category_id' => 'nullable|integer|exists:categories,id',
+        ]);
         $productService = new ProductService($this->productRepository);
-        $products = $productService->getAll();
+        $products = $productService->search($filters);
         return view('admin.product.index', [
             'products'    => $products,
+            'brands'      => Brand::all(),
+            'categories'  => Category::all(),
+            'filters'     => $filters,
             'currentMenu'   => 'products'
         ]);
     }

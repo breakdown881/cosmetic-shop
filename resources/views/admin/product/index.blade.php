@@ -12,6 +12,34 @@
             <div class="action-bar">
                 <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">@lang('translate.add')</a>
             </div>
+            <form method="get" action="{{ route('admin.product.index') }}" class="form-inline mb-3">
+                <div class="form-group mr-2">
+                    <input name="name" type="text" value="{{ $filters['name'] ?? '' }}" class="form-control"
+                        placeholder="@lang('translate.name')">
+                </div>
+                <div class="form-group mr-2">
+                    <select name="brand_id" class="form-control">
+                        <option value="">@lang('translate.brands')</option>
+                        @foreach ($brands ?? [] as $brand)
+                            <option value="{{ $brand->id }}" @selected(($filters['brand_id'] ?? null) == $brand->id)>
+                                {{ $brand->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <select name="category_id" class="form-control">
+                        <option value="">@lang('translate.categories')</option>
+                        @foreach ($categories ?? [] as $category)
+                            <option value="{{ $category->id }}" @selected(($filters['category_id'] ?? null) == $category->id)>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mr-2">@lang('translate.find')</button>
+                <a href="{{ route('admin.product.index') }}" class="btn btn-secondary btn-sm">@lang('translate.cancel')</a>
+            </form>
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="table-responsive">

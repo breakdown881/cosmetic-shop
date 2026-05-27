@@ -26,6 +26,42 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
         return null;
     }
 
+    public function search(array $filters)
+    {
+        $name = trim((string) ($filters['name'] ?? ''));
+        $brandId = $filters['brand_id'] ?? null;
+        $categoryId = $filters['category_id'] ?? null;
+
+        $products = Product::search($name)
+            ->when($brandId, function ($builder) use ($brandId) {
+                $builder->where('brand_id', (int) $brandId);
+            })
+            ->when($categoryId, function ($builder) use ($categoryId) {
+                $builder->where('category_id', (int) $categoryId);
+            })
+            ->query(function ($query) use ($name, $brandId, $categoryId) {
+                if ($name !== '') {
+                    $query->where('name', 'like', '%' . $name . '%');
+                }
+
+                if ($brandId) {
+                    $query->where('brand_id', (int) $brandId);
+                }
+
+                if ($categoryId) {
+                    $query->where('category_id', (int) $categoryId);
+                }
+
+                $query->latest();
+            })
+            ->get();
+
+        if ($products->isNotEmpty()) {
+            return $products;
+        }
+        return null;
+    }
+
     public function getByCategory($id)
     {
         $products = Product::all()->where('category_id', $id);
