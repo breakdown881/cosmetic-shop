@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,6 +80,14 @@ Route::prefix('admin')->group(function () {
             Route::get('edit/{role}', [RoleController::class, 'edit'])->name('admin.role.edit');
             Route::patch('update/{role}', [RoleController::class, 'update'])->name('admin.role.update');
             Route::delete('delete/{role}', [RoleController::class, 'destroy'])->name('admin.role.destroy');
+        });
+        Route::prefix('staffs')->middleware('admin.role:MANAGER')->group(function () {
+            Route::get('/', [StaffController::class, 'index'])->name('admin.staff.index');
+            Route::get('create', [StaffController::class, 'create'])->name('admin.staff.create');
+            Route::post('store', [StaffController::class, 'store'])->name('admin.staff.store');
+            Route::get('edit/{staff}', [StaffController::class, 'edit'])->name('admin.staff.edit');
+            Route::patch('update/{staff}', [StaffController::class, 'update'])->name('admin.staff.update');
+            Route::delete('delete/{staff}', [StaffController::class, 'destroy'])->name('admin.staff.destroy');
         });
     });
 });

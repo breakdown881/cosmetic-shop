@@ -143,14 +143,17 @@
                     <a class="dropdown-item" href="#">@lang('translate.add')</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
+            @php
+                $isStaff = ($currentMenu ?? '') === 'staffs';
+            @endphp
+            <li class="nav-item dropdown {{ $isStaff ? 'show' : '' }}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="" aria-expanded="{{ $isStaff ? 'true' : 'false' }}">
                     <i class="fas fa-users"></i>
                     <span>@lang('translate.staffs')</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="">
-                    <a class="dropdown-item" href="#">@lang('translate.list')</a>
-                    <a class="dropdown-item" href="#">@lang('translate.add')</a>
+                <div class="dropdown-menu {{ $isStaff ? 'show' : '' }}" aria-labelledby="">
+                    <a class="dropdown-item {{ request()->is('admin/staffs') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">@lang('translate.list')</a>
+                    <a class="dropdown-item {{ request()->is('admin/staffs/create') ? 'active' : '' }}" href="{{ route('admin.staff.create') }}">@lang('translate.add')</a>
                 </div>
             </li>
             @php
