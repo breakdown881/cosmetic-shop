@@ -30,6 +30,19 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         return null;
     }
 
+    public function searchByName(string $name)
+    {
+        $brands = Brand::search($name)
+            ->query(function ($query) use ($name) {
+                $query->where('name', 'like', '%' . $name . '%');
+            })
+            ->get();
+        if ($brands->isNotEmpty()) {
+            return $brands;
+        }
+        return null;
+    }
+
     public function create(array $data)
     {
         try {

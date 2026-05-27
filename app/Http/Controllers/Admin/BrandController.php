@@ -22,12 +22,17 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+        ]);
+        $name = $validated['name'] ?? null;
         $brandService = new BrandService($this->brandRepository);
-        $brands = $brandService->getAll();
+        $brands = $brandService->searchByName($name);
         return view('admin.brand.index', [
             'brands'        => $brands,
+            'name'          => $name,
             'currentMenu'   => 'brands'
         ]);
     }

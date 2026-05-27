@@ -19,6 +19,17 @@ class BrandService
         return $this->brandRepository->getAll();
     }
 
+    public function searchByName(?string $name)
+    {
+        $name = trim((string) $name);
+
+        if ($name === '') {
+            return $this->getAll();
+        }
+
+        return $this->brandRepository->searchByName($name);
+    }
+
     public function get($id)
     {
         return $this->brandRepository->get($id);

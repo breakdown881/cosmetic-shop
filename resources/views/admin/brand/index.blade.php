@@ -15,6 +15,14 @@
                 <a href="{{ route('admin.brand.create') }}" class="btn btn-primary btn-sm">@lang('translate.add')</a>
                 <input type="submit" class="btn btn-danger btn-sm" value="@lang('translate.delete')" name="delete">
             </div>
+            <form method="get" action="{{ route('admin.brand.index') }}" class="form-inline mb-3">
+                <div class="form-group mr-2">
+                    <input name="name" type="text" value="{{ $name ?? '' }}" class="form-control"
+                        placeholder="@lang('translate.name')">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mr-2">@lang('translate.find')</button>
+                <a href="{{ route('admin.brand.index') }}" class="btn btn-secondary btn-sm">@lang('translate.cancel')</a>
+            </form>
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
