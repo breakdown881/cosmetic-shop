@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +71,14 @@ Route::prefix('admin')->group(function () {
             Route::post('/{id}/store', [ProductController::class, 'storeChild'])->name('admin.product.store.child');
             Route::get('{id}/edit/{product}', [ProductController::class, 'editChild'])->name('admin.product.edit.child');
             Route::patch('{id}/update/{product}', [ProductController::class, 'updateChild'])->name('admin.product.update.child');
+        });
+        Route::prefix('roles')->middleware('admin.role:MANAGER')->group(function () {
+            Route::get('/', [RoleController::class, 'index'])->name('admin.role.index');
+            Route::get('create', [RoleController::class, 'create'])->name('admin.role.create');
+            Route::post('store', [RoleController::class, 'store'])->name('admin.role.store');
+            Route::get('edit/{role}', [RoleController::class, 'edit'])->name('admin.role.edit');
+            Route::patch('update/{role}', [RoleController::class, 'update'])->name('admin.role.update');
+            Route::delete('delete/{role}', [RoleController::class, 'destroy'])->name('admin.role.destroy');
         });
     });
 });

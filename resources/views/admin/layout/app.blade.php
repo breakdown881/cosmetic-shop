@@ -153,14 +153,17 @@
                     <a class="dropdown-item" href="#">@lang('translate.add')</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="">
+            @php
+                $isRole = ($currentMenu ?? '') === 'roles';
+            @endphp
+            <li class="nav-item dropdown {{ $isRole ? 'show' : '' }}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="" aria-expanded="{{ $isRole ? 'true' : 'false' }}">
                     <i class="fas fa-user-shield"></i>
                     <span>@lang('translate.authorizations')</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="">
-                    <a class="dropdown-item" href="#">@lang('translate.listRole')</a>
-                    <a class="dropdown-item" href="#">@lang('translate.add')</a>
+                <div class="dropdown-menu {{ $isRole ? 'show' : '' }}" aria-labelledby="">
+                    <a class="dropdown-item {{ request()->is('admin/roles') ? 'active' : '' }}" href="{{ route('admin.role.index') }}">@lang('translate.listRole')</a>
+                    <a class="dropdown-item {{ request()->is('admin/roles/create') ? 'active' : '' }}" href="{{ route('admin.role.create') }}">@lang('translate.add')</a>
                     <a class="dropdown-item" href="#">@lang('translate.listAction')</a>
                 </div>
             </li>
