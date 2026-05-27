@@ -14,16 +14,12 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
 
     public function get($id)
     {
-        $product = Product::all()->firstWhere('id', $id);
-        if ($product) {
-            return $product;
-        }
-        return null;
+        return Product::find($id);
     }
 
     public function getAll()
     {
-        $products = Product::all();
+        $products = Product::latest()->get();
         if ($products->isNotEmpty()) {
             return $products;
         }
@@ -51,16 +47,7 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     public function create(array $data)
     {
         try {
-            $existProduct = Product::where('name', '=', $data["name"])->get();
-            $productObject = new Product();
-            $productObject->fill($data);
-
-            if ($existProduct->count() == 0) {
-                if ($productObject->save()) {
-                    return $productObject;
-                }
-            }
-            return false;
+            return Product::create($data);
         } catch (\Exception $exception) {
             return false;
         }

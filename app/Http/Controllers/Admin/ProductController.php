@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\CreateProductRequest;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
@@ -52,7 +53,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create', ['currentMenu' => 'products']);
+        return view('admin.product.create', [
+            'brands' => Brand::all(),
+            'categories' => Category::all(),
+            'currentMenu' => 'products',
+        ]);
     }
 
     public function createChild($id)
@@ -62,6 +67,8 @@ class ProductController extends Controller
         return view('admin.product.create', [
             'product'      => $product,
             'isChild'       => true,
+            'brands' => Brand::all(),
+            'categories' => Category::all(),
             'currentMenu'   => 'products'
         ]);
     }
@@ -69,10 +76,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\CreateCategoryRequest  $request
+     * @param  \Illuminate\Http\CreateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CreateProductRequest $request)
     {
         try {
             $data = $request->validated();
@@ -84,7 +91,7 @@ class ProductController extends Controller
         }
     }
 
-    public function storeChild($id, CreateCategoryRequest $request)
+    public function storeChild($id, CreateProductRequest $request)
     {
         try {
             $data               = $request->validated();
@@ -109,6 +116,8 @@ class ProductController extends Controller
         $product = $productService->get($id);
         return view('admin.product.edit', [
             'product'      => $product,
+            'brands' => Brand::all(),
+            'categories' => Category::all(),
             'currentMenu'   => 'products'
         ]);
     }
@@ -121,6 +130,8 @@ class ProductController extends Controller
             'product'      => $product,
             'parent'        => $parent,
             'isChild'       => true,
+            'brands' => Brand::all(),
+            'categories' => Category::all(),
             'currentMenu'   => 'products'
         ]);
     }
@@ -128,11 +139,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\CreateCategoryRequest  $request
+     * @param  \Illuminate\Http\CreateProductRequest  $request
      * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateCategoryRequest $request, Product $product)
+    public function update(CreateProductRequest $request, Product $product)
     {
         try {
             $data = $request->validated();
@@ -144,7 +155,7 @@ class ProductController extends Controller
         }
     }
 
-    public function updateChild(CreateCategoryRequest $request, $id, Product $product)
+    public function updateChild(CreateProductRequest $request, $id, Product $product)
     {
         try {
             $data = $request->validated();
@@ -159,7 +170,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category  $product
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
@@ -177,7 +188,7 @@ class ProductController extends Controller
     {
         try {
             $validated = $request->validate([
-                'status' => 'required|integer|max:2',
+                'status' => 'required|integer|in:0,1',
             ]);
             $productService = new ProductService($this->productRepository);
             $productService->changeStatus($product, $validated['status']);

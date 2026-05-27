@@ -37,26 +37,26 @@ class ProductService
     public function store($data)
     {
         $data['created_by'] = Auth::guard('admin')->user()->id;
-        $category = $this->productRepository->create($data);
+        $product = $this->productRepository->create($data);
 
-        return $category;
+        return $product;
     }
 
-    public function update($category, $data)
+    public function update($product, $data)
     {
-        $this->productRepository->update($category, $data);
+        $this->productRepository->update($product, $data);
 
-        return $category;
+        return $product;
     }
 
-    public function destroy($category)
+    public function destroy($product)
     {
-        return $this->productRepository->delete($category);
+        return $this->productRepository->delete($product);
     }
 
-    public function changeStatus($category, $status)
+    public function changeStatus($product, $status)
     {
-        $this->productRepository->update($category, ['status' => $status]);
-        return $category;
+        $this->productRepository->update($product, ['status' => $status]);
+        return $product;
     }
 }

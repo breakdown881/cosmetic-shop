@@ -1,19 +1,16 @@
 @extends('admin.layout.app')
-@section('title', 'Categories')
+@section('title', 'Products')
 @section('content')
     <div id="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.dashboard') }}">@lang('translate.management')</a>
                 </li>
-                <li class="breadcrumb-item active">@lang('translate.categories')</li>
+                <li class="breadcrumb-item active">@lang('translate.products')</li>
             </ol>
-            <!-- DataTables Example -->
             <div class="action-bar">
                 <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">@lang('translate.add')</a>
-                <input type="submit" class="btn btn-danger btn-sm" value="@lang('translate.delete')" name="delete">
             </div>
             <div class="card mb-3">
                 <div class="card-body">
@@ -21,20 +18,22 @@
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th class="no-sort text-center" width="50"><input type="checkbox"
-                                            onclick="checkAll(this)"></th>
-                                    <th class="text-center" width="300">@lang('translate.name')</th>
+                                    <th class="text-center" width="120">Code</th>
+                                    <th class="text-center">@lang('translate.name')</th>
+                                    <th class="text-center" width="120">Price</th>
+                                    <th class="text-center" width="100">Inventory</th>
                                     <th class="text-center" width="100">@lang('translate.status')</th>
-                                    <th class="text-center" width="100">@lang('translate.createdAt')</th>
-                                    <th class="text-center" width="100">@lang('translate.updatedAt')</th>
-                                    <th class="no-sort text-center" width="100">@lang('translate.management')</th>
+                                    <th class="text-center" width="140">@lang('translate.createdAt')</th>
+                                    <th class="no-sort text-center" width="120">@lang('translate.management')</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories ?? [] as $product)
+                                @foreach ($products ?? [] as $product)
                                     <tr>
-                                        <td class="text-center"><input type="checkbox" data-id="{{ $product->id }}"></td>
+                                        <td class="text-center">{{ $product->code }}</td>
                                         <td class="text-center">{{ $product->name }}</td>
+                                        <td class="text-center">{{ number_format($product->price) }}</td>
+                                        <td class="text-center">{{ $product->inventory_qty }}</td>
                                         <td class="text-center">
                                             <button
                                                 class="btn {{ $product->status ? 'btn-success' : 'btn-danger' }} btn-sm btn-change-status"
@@ -45,21 +44,14 @@
                                             </button>
                                         </td>
                                         <td class="text-center">{{ $product->created_at }}</td>
-                                        <td class="text-center">{{ $product->updated_at }}</td>
                                         <td class="text-center row">
-                                            <div class="col-md-4">
-                                                <a href="{{ route('admin.product.list', ['id' => $product->id]) }}"
-                                                    class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-list"></i>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <a href="{{ route('admin.product.edit', ['id' => $product->id]) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <form id="delete-form-{{ $product->id }}" class="hidden"
                                                     action="{{ route('admin.product.destroy', ['product' => $product->id]) }}"
                                                     method="POST">
